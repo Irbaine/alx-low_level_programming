@@ -1,6 +1,5 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include "holberton.h"
 
 /**
  * main - function to print file name
