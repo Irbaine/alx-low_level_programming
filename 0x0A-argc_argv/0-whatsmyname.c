@@ -1,17 +1,17 @@
+#include <stdlib.h>
 #include <stdio.h>
+#include "holberton.h"
 
 /**
- * main - is a function that prints the name.
- *@argc: is an argument counter for char.
- *@argv: is an agument value for char.
- *Return: Returns always success.
-**/
+ * main - function to print file name
+ * @argc: count of the arguments supplied to the program and the
+ * @argv: an array of pointers to the strings
+ * Return: Always 0
+ */
 
 int main(int argc, char *argv[])
 {
-	int i = argc - argc;
-
-	printf("%s\n", argv[i]);
-
+	if (argc > 0)
+		printf("%s\n", argv[0]);
 	return (0);
 }
