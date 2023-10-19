@@ -3,17 +3,17 @@
 
 /**
  * list_len - returns the number of elements
- * @h: pointer 
- * Return: elements
+ * @h: pointer
+ * Return: elemnts number
  */
-size_t list_len(const list_t *x)
+size_t list_len(const list_t *h)
 {
-	size_t x = 0;
+	size_t n = 0;
 
-	while (x)
+	while (h)
 	{
 		n++;
-		x = x->next;
+		h = h->next;
 	}
 	return (n);
 }
