@@ -10,5 +10,6 @@ int _putchar(char c);
 unsigned long int _power(unsigned int base, unsigned int pow);
 unsigned int flip_bits(unsigned long int n, unsigned long int m);
 int set_bit(unsigned long int *n, unsigned int index);
+int get_endianness(void);
 
 #endif /*MAIN_H*/
