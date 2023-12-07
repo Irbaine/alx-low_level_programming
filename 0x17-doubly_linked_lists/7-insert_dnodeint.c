@@ -1,76 +1,60 @@
 #include "lists.h"
-#include <stdlib.h>
 
 /**
- * insert_dnodeint_at_index - insert new node at index given
- * @h: pointer to the start of the list
- * @idx: index position of the new node
- * @n: data n of the new node
- *
- * Return: returns the pointer to the new node or NULL
+ * add_dnodeint_end - adds a new node at the end
+ * @head: head of double list
+ * @n: new node
+ * Return: the address of the new element, or NULL if it failed
  */
-
+dlistint_t *add_dnodeint_end(dlistint_t **head, const int n);
+/**
+ * add_dnodeint -  adds a new node at the beginning
+ * @head: head of double list
+ * @n: new node
+ * Return: the address of the new element, or NULL if it failed
+ */
+dlistint_t *add_dnodeint(dlistint_t **head, const int n);
+/**
+ * insert_dnodeint_at_index -  inserts a new
+ * node at a given position
+ * @h: head of double list
+ * @idx: index where to insert
+ * @n: value to insert
+ * Return: address of the new node
+ * or NULL if it failed
+ */
 dlistint_t *insert_dnodeint_at_index(dlistint_t **h, unsigned int idx, int n)
 {
-	dlistint_t *node = malloc(sizeof(dlistint_t));
+	dlistint_t *nav, *new, *before;
+	unsigned int i = 0;
 
-	/* Check if memory is successfully allocated */
-	if (node == NULL)
-	{
+	if (!h)
 		return (NULL);
-	}
-	/* Assign value to new node */
-	node->n = n;
-	node->prev = NULL;
-	node->next = NULL;
-	/* Check if list is not empty */
-	if (*h == NULL)
-	{
-		*h = node;
-		return (*h);
-	}
-	/* Insert the node */
-	return (insert(&*h, idx, node));
-}
-
-/**
- * insert - insert the node in the index position
- * @h: pointer to the first node of the list
- * @idx: index position
- * @node: pointer to the new node
- *
- * Return: returns the pointer to the new node
- */
-
-dlistint_t *insert(dlistint_t **h, unsigned int idx, dlistint_t *node)
-{
-	unsigned int count = 1;
-	dlistint_t *ptr = *h;
-	dlistint_t *current = *h;
-
+	nav = *h;
+	new = malloc(sizeof(dlistint_t));
+	if (!new)
+		return (NULL);
+	new->n = n;
+	new->next = NULL;
 	if (idx == 0)
+		return (add_dnodeint(h, n));
+	while (nav)
 	{
-		node->next = current;
-		current->prev = node;
-		*h = node;
-		return (*h);
-	}
-	else
-	{
-		while (current != NULL)
+		if (i == idx - 1)
+			before = nav;
+
+		if (i == idx)
 		{
-			ptr = ptr->next;
-			if (count == idx)
-			{
-				current->next = node;
-				node->prev = current;
-				ptr->prev = node;
-				node->next = ptr;
-				return (node);
-			}
-			current = current->next;
-			count++;
+			new->next = nav;
+			nav->prev = new;
+			before->next = new;
+			new->prev = before;
+			return (new);
 		}
-		return (NULL);
+		if (!nav->next && i + 1 == idx)
+			return (add_dnodeint_end(h, n));
+		nav = nav->next;
+		i++;
 	}
+	return (NULL);
 }

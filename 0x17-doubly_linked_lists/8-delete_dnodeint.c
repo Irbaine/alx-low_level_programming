@@ -1,47 +1,48 @@
-#include <stdlib.h>
 #include "lists.h"
 
 /**
- * delete_dnodeint_at_index - delete a node at index
- * @*head: pointer to the start of the list
- * @index: index position
- *
- * Return: 1 if successful or -1 if failed
+ * delete_dnodeint_at_index - deletes
+ * deletes the node at index
+ * @head: head of double list
+ * @index: index where to insert
+ * Return: 1 if it succeeded, -1 if it failed
  */
-
 int delete_dnodeint_at_index(dlistint_t **head, unsigned int index)
 {
-	unsigned int count = 0;
-	dlistint_t *current = *head;
-	dlistint_t *ptr = *head;
+	dlistint_t *nav, *before, *deleted;
+	unsigned int i = 0;
 
-	if (current == NULL)
-	{
+	if (!head || !*head)
 		return (-1);
-	}
-
+	nav = *head;
 	if (index == 0)
 	{
-		ptr = ptr->next;
-		free(*head);
-		*head = ptr;
+		*head = nav->next;
+		(*head)->prev = NULL;
+		free(nav);
 		return (1);
 	}
-	else
+	while (nav)
 	{
-		while (current != NULL)
+		if (i == index)
+			deleted = nav;
+		if (i == index - 1)
+			before = nav;
+		if (i == index + 1)
 		{
-			ptr = ptr->next;
-			if (count == index)
-			{
-				ptr->prev = current->prev;
-				free(current);
-				current = ptr->prev;
-				current->next = ptr;
-			}
-			current = current->next;
-			count++;
+			before->next = nav;
+			nav->prev = before;
+			free(deleted);
+			return (1);
 		}
-		return (1);
+		if (nav->next == NULL && i == index)
+		{
+			before->next = NULL;
+			free(nav);
+			return (1);
+		}
+		nav = nav->next;
+		i++;
 	}
+	return (-1);
 }
