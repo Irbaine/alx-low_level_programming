@@ -1,8 +1,9 @@
 #include "lists.h"
 
 /**
- * @head: pointer to the first element
- * pop_listint - delete the head node
+ * listint_t: - delete the head node
+ * pop_listint: - function to listint
+ * @head: header
  * Return: the data inside the elements whic is deleted
  * or 0 if empty list
  */
